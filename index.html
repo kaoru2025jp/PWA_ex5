@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>計算アプリ</title>
+</head>
+<body>
+
+<h2>入力</h2>
+
+<label>B: <input type="number" id="B"></label><br><br>
+<label>V: <input type="number" id="V"></label><br><br>
+<label>O: <input type="number" id="O"></label><br><br>
+
+<button onclick="sendData()">計算</button>
+
+<h3>結果</h3>
+<pre id="result"></pre>
+
+<script>
+async function sendData() {
+  const B = parseFloat(document.getElementById("B").value);
+  const V = parseFloat(document.getElementById("V").value);
+  const O = parseFloat(document.getElementById("O").value);
+
+  if (isNaN(B) || isNaN(V) || isNaN(O)) {
+    alert("値を入力してください");
+    return;
+  }
+
+  // 修正版の式
+  const B1 = B * V - O;
+
+  const data = {
+    B1: B1,
+    V: V
+  };
+
+  try {
+    const res = await fetch("★GASのURLをここに貼る★", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    let text = "";
+    result.forEach(item => {
+      text += "r=" + item.r.toFixed(2) + " → M=" + item.M.toFixed(6) + "\n";
+    });
+
+    document.getElementById("result").innerText = text;
+
+  } catch (e) {
+    alert("通信エラー");
+    console.error(e);
+  }
+}
+</script>
+
+</body>
+</html>
