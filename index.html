@@ -28,23 +28,14 @@ async function sendData() {
     return;
   }
 
-  // 修正版の式
+  // 計算①
   const B1 = B * V - O;
 
-  const data = {
-    B1: B1,
-    V: V
-  };
-
   try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbz16i6x27UgUJTmtwQ2RjlL67r6IuxgxRWkb1fmoxyUpH2IIWnBWlhXKgHQjSwop5B52w/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+    // ★ここが変更ポイント
+    const url = `GASのURL?B1=${B1}&V=${V}`;
 
+    const res = await fetch(url);
     const result = await res.json();
 
     let text = "";
@@ -60,6 +51,5 @@ async function sendData() {
   }
 }
 </script>
-
 </body>
 </html>
