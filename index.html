@@ -33,7 +33,7 @@ async function sendData() {
 
   try {
     // ★ここが変更ポイント
-    const url = `GASのURL?B1=${B1}&V=${V}`;
+    const url = `https://script.google.com/macros/s/AKfycbyF9TV3zRwqCp38nuI-BEI-L6OV36nF8BBuRRdlDClRI5ZsXBEWdpVTs69SywB3G1w/exec?B1=${B1}&V=${V}`;
 
     const res = await fetch(url);
     const result = await res.json();
